@@ -86,16 +86,16 @@ This terraform template (main.tf) enables us to deploy an AWS EC2 instance.
 Using the AWS environment variables set, we are able to connect to AWS and create the instance using the IAM user credentials.
 In the template we need to provide the correct information such as:
 
-A provider which is AWS.
-A region, which I have chosen Asia Pacific (Syndey) for latency reasons.
-An AMI id - I have chosen a free CentOS 7 version from the AWS market place.
-Instance type - t2.micro was chosen as it is a free tier.
-We can also include a user-data script that runs on initial start up of the EC2 instance.
+- A provider which is AWS.
+- A region, which I have chosen Asia Pacific (Syndey) for latency reasons.
+- An AMI id - I have chosen a free CentOS 7 version from the AWS market place.
+- Instance type - t2.micro was chosen as it is a free tier.
+- We can also include a user-data script that runs on initial start up of the EC2 instance.
 
 In the user-data bash script, we can configure the server, pull the Sinatra web app from the provided repo and start the application.
-The script first installs all the required packages e.g. developer tools, git, ruby
-Then clones the Sinatra web app repo provided by REA
-Uses bundle to install and start the application on port 80.
+- The script first installs all the required packages e.g. developer tools, git, ruby
+- Then clones the Sinatra web app repo provided by REA
+- Uses bundle to install and start the application on port 80.
 
 
 ### Observations and alternatives
