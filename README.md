@@ -24,8 +24,8 @@ aws cli
 	* [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/install-linux.html)
 - AWS account and an IAM user account with permissions to deploy ec2 instances and create security groups.
 - Required environment variables set on your local with values of IAM user account key and secret key
-	AWS_ACCESS_KEY
-	AWS_SECRET_KEY
+	* AWS_ACCESS_KEY
+	* AWS_SECRET_KEY
 - You need to create a security group in aws ec2 given the name "sinatra" with only inbound ports 22(SSH) and 80(HTTP) allowed.
 
 
@@ -68,10 +68,10 @@ terraform apply
 
 ### Running the webapp
 
-After you have completed the above steps to deploy, go to AWS console and observe the instance status until fully started
-Take note of the public dns (ipv4) url
-It will take around 10 minutes for the user-data scripts to fully complete
-Once 10 minutes has passed, paste the url into a browser to see the webapp
+- After you have completed the above steps to deploy, go to AWS console and observe the instance status until fully started. 
+- Take note of the public dns (ipv4) url. It should look something similar to "ec2-13-236-94-71.ap-southeast-2.compute.amazonaws.com"
+- It will take around 10 minutes for the user-data scripts to fully complete
+- Once 10 minutes has passed, paste the url into a browser to see the webapp running
 
 ### Break down of deployment
 
@@ -102,7 +102,7 @@ Uses bundle to install and start the application on port 80.
 
 For simplicity sake, configuration such as installing developer tools, ruby, pulling the sinatra app repo, was all done in a user-data bash script which is run initially when the ec2 instance is created and deployed.
 This could have also been acheived with a configuration tool such as Ansible, Chef, Puppet or the likes.
-So after the instance is deployed  we can apply the configuration using mentioned tools.
+So after the instance is deployed we can apply the configuration using mentioned tools.
 
 The user-data script also starts the webapp using port 80 on creation. The only downside to this is that the app will not automatically start on reboot. 
 To resolve this we could create a systemctl start script which would start the app on reboot when enabled.
@@ -114,8 +114,8 @@ We could also create a new DNS entry in Route53 to use a domain name that the SS
 
 The AMI used to deploy is a free centOS 7 image from the aws market place.
 We could have used a more secure AMI, perhaps a hardened version from another source which would have costed money to use.
-Another alternative is to harden the AMI ourselves using "packer" which allows you to perform changes to the original AMI e.g. welcome notes, ssh config changes to disable password authenitcation, root login, configure firewall/IPtables etc. Then creates a new AMI which is pushed your EC2 console.
-
+Another alternative is to harden the AMI ourselves using "packer" which allows you to perform changes to the original AMI e.g. welcome notes, ssh config changes to disable password authenitcation, disable root login, configure firewall/IPtables etc. Then creates a new AMI which is pushed your EC2 console.
+From the new hardened AMI created, we can use this AMI-id in our terraform template and deploy the EC2 instance.
 
 ## Built With
 
